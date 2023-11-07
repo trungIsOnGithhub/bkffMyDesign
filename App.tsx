@@ -6,9 +6,10 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+// import type {PropsWithChildren} from 'react';
 import { SafeAreaView,ScrollView,StatusBar,StyleSheet,Text,useColorScheme,View,Image,Pressable } from 'react-native';
 import PaginationDot from 'react-native-animated-pagination-dot';
+import { createStackNavigator } from '@react-navigation/stack';
 
 // import {
 //   Colors,
@@ -22,7 +23,20 @@ import PaginationDot from 'react-native-animated-pagination-dot';
 // import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView } from "react-native";
 // import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
+const Stack = createStackNavigator();
+
 export default function App() {
+    return (
+        <Stack.Navigator
+            initialRouteName="GeneralProfile"
+        >
+            <Stack.Screen name="GeneralProfile" component={GeneralProfile} />
+            <Stack.Screen name="DetailProfile" component={DetailProfile} />
+        </Stack.Navigator>
+    );
+}
+
+function GeneralProfile({navigation}) {
     return (
         <SafeAreaView style={styles.container}>
             <Text style={[styles.text, { fontWeight: "200", fontSize: 28, textAlign: "center" }]}>Hồ sơ người dùng</Text>
@@ -49,8 +63,7 @@ export default function App() {
 
                 <Pressable
                   style={styles.modifyButton}
-                  onPress={() => { console.log("An Nutt!"); }}
-                  accessibilityLabel="Learn more about this purple button"
+                  onPress={() => { navigation.navigate('DetailProfile') }}
                 >
                   <Text style={styles.modifyButtonText}>Chi Tiết Hồ Sơ</Text>
                 </Pressable>
@@ -79,10 +92,10 @@ export default function App() {
                             <Image source={require("./assets/media2.jpg")} style={styles.image} resizeMode="cover"></Image>
                             <Text style={[styles.text, { fontWeight: "600", fontSize: 14, textAlign: "center" }]}>Bánh mì hạnh nhân</Text>
                         </View>
-                        <View style={styles.mediaImageContainer}>
+                        {/* <View style={styles.mediaImageContainer}>
                             <Image source={require("./assets/media3.jpg")} style={styles.image} resizeMode="cover"></Image>
                             <Text style={[styles.text, { fontWeight: "600", fontSize: 14, textAlign: "center" }]}>Hồ sơ người dùng</Text>
-                        </View>
+                        </View> */}
                     </ScrollView>
                 </View>
                 {/* <Text style={[styles.subText, styles.recent]}>Recent Activity</Text>
@@ -251,3 +264,11 @@ const styles = StyleSheet.create({
         marginRight: 20
     }
 });
+
+function DetailProfile() {
+    return (
+        <SafeAreaView>
+            <Text>HHIHIHI</Text>
+        </SafeAreaView>
+    );
+}
