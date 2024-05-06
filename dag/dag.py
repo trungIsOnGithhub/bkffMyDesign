@@ -14,16 +14,26 @@ tasks_dag = DAG(
 )
 
 extract_data_from_source = PythonOperator(
-    task_id="extract_data_from_source",
+    task_id = "extract_data_from_source",
     python_callable = "extract_data_from_source",
+    provide_context=True,
     op_args = ["https://en.wikipedia.org/wiki/List_of_association_football_stadiums_by_capacity"],
     dag = tasks_dag
 )
 
 transform_data_format = PythonOperator(
-
+    task_id = "transform_data_format",
+    python_callable = "",
+    provide_context=True,
+    dag = tasks_dag
 )
 
-write_data_to_endpoint = PythonOperator(
-
+write_data_to_sink = PythonOperator(
+    task_id = "write_data_to_sink",
+    python_callable = "write_data_to_sink",
+    provide_context=True,
+    dag = tasks_dag
 )
+
+# flow define
+extract_data_from_source >> transform_data_format >> write_data_to_sink
