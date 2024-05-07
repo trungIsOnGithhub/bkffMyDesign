@@ -1,7 +1,7 @@
-import DAG from airflow
+from airflow import DAG 
 import sys
 import datetime from datetime
-import PythonOperator from airflow.operators.python
+from airflow.operators.python import PythonOperator 
 
 # make this module available for import
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

@@ -1,3 +1,4 @@
+from datetime import datetime
 from helpers.main import *
 
 def extract_data_from_source(**args):
@@ -50,6 +51,19 @@ def transform_data_format(**args):
 
 
 def write_data_to_sink():
+    data = kwargs['props'].xcom_pull(key='rows', task_ids='transform_data_format')
+
+    data = json.loads(data)
+    data = pd.DataFrame(data)
+
+    file_name = ('stadiums_cleaned_' + str(datetime.now().date())
+                 + "_" + str(datetime.now().time()).replace(":", "_") + '.csv')
+
+    # data.to_csv('data/' + file_name, index=False)
+    data.to_csv('' + file_name,
+                storage_options={
+                    'account_key': ''
+                }, index=False)
 
 
 NO_IMAGE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/No-image-available.png/480px-No-image-available.png'
