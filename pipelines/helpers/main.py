@@ -34,20 +34,22 @@ def clean_text(text):
 def parse_html(html):
     soup = BeautifulSoup(html, 'html.parser')
 
-    table = soup.find_all('table', {"class": "wikitable sortable"})[0]
+    table = soup.find_all("table")[2]
 
-    return table.find_all('tr')
+    return table.find_all("tr")
 
 if __name__== '__main__':
     # test if all functions run smoothly
     try:
         html_text = get_web_page_text('https://en.wikipedia.org/wiki/List_of_association_football_stadiums_by_capacity')
-        cleaned_html_text = clean_text(html_text)
-        html_table_rows = parse_html(cleaned_html_text)
+        html_table_rows = parse_html(html_text)
 
-        # for row in html_table_rows:
-        #     print(row)
-        #     print('---------------')
-        print(html_table_rows)
+        for row in html_table_rows:
+            tds = row.find_all('td')
+
+            for td in tds:
+                print(td)
+
+            print('---------------')
     except Exception as e:
         logging.error(e)
