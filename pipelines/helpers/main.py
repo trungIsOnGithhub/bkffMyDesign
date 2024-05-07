@@ -1,6 +1,7 @@
 import requests
 import logging
 from bs4 import BeautifulSoup
+from geopy import Nominatim
 
 def get_web_page_text(url):
     logging.info("Getting Web Page from: {url}")
@@ -37,6 +38,16 @@ def parse_html(html):
     table = soup.find_all("table")[2]
 
     return table.find_all("tr")
+
+def get_location_lat_long(country, city):
+    geolocator = Nominatim(user_agent='geoapiExercises')
+    location = geolocator.geocode(f'{city}, {country}')
+
+    if location is not None:
+        return location.latitude, location.longitude
+
+    return None
+
 
 if __name__== '__main__':
     # test if all functions run smoothly
