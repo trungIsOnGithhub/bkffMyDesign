@@ -1,0 +1,26 @@
+{
+    "bindings": [
+        {
+            "authLevel": "anonymous",
+            "type": "httpTrigger",
+            "direction": "in",
+            "name": "req",
+            "methods": [
+                "get"
+            ]
+        },
+        {
+            "type": "http",
+            "direction": "out",
+            "name": "$return"
+        },
+        {
+            "name": "readStadiumItems",
+            "type": "sql",
+            "direction": "in",
+            "commandText": "select [rank], [stadium], [capacity], [region], [country], [city], [home_team] from [dbo].[stadiums]",
+            "commandType": "Text",
+            "connectionStringSetting": "SqlConnectionString"
+        }
+    ]
+}
